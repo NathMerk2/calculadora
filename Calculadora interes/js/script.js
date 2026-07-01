@@ -1,23 +1,44 @@
-let num1, num2, num3;
+function calcular() {
+    let valor, inicial, prestamo, seisporciento, sf, gps, sfaDos, traspaso, financiar, interesmensual, interestotal, capitalMasInteres, cuotas, treintadias, anios;
 
-function interesComp() {
-    let int, total;
-    
-    num1 = document.getElementById("valor1").value;
-    num2 = document.getElementById("valor2").value;
-    num3 = document.getElementById("valor3").value;
-    por = num2 / 100;
-    int = 1 + por;
-    total = num1 * Math.pow(int, num3);
+    valor = parseFloat(document.getElementById("valor1").value);
+    inicial = parseFloat(document.getElementById("valor2").value);
+    cuotas = parseFloat(document.getElementById("valor3").value);
+    interes = parseFloat(document.getElementById("valor4").value);
+    treintadias = parseFloat(document.getElementById("valor5").value);
+    anios = parseFloat(document.getElementById("valor6").value);
 
-    let r = total;
-
-    document.getElementById("resultado").innerHTML = " $"+ total.toFixed(2);
-    document.getElementById("interes").innerHTML = "";
-    for (let i = 1; i <= num3; i++) {
-        let interes = num1 * Math.pow(int, i);
-        document.getElementById("interes").innerHTML += "Año " + i + ": $" + interes.toFixed(2) + "<br>" + "Interés: +" + (interes - num1).toFixed(2) + "<br>"; 
-    } 
-
+    prestamo = valor - inicial - treintadias;
+    seisporciento = prestamo * 0.06;
+    sf = 36400;
+    gps = 8500 * anios;
+    sfaDos = 36400;
+    traspaso = 17200;
+    financiar = prestamo + seisporciento + sf + gps + sfaDos + traspaso;
+    interesmensual = financiar * interes / 100 ;
+    interestotal = interesmensual * cuotas;
+    capitalMasInteres = financiar + interestotal;
+    document.getElementById("resultado").innerHTML = "capital + interés: $" + capitalMasInteres.toFixed(2) + "<br>" + "Interés mensual: $" + interesmensual.toFixed(2) + "<br>" + "Interés total: $" + interestotal.toFixed(2) + "<br>" + "Cuotas: " + cuotas + "<br>" + "Cuotas de: $" + (capitalMasInteres / cuotas).toFixed(2);
 }
 
+function calcularInicial(input) {
+    let valor, minteres, recteres;
+
+    minteres = parseFloat(document.getElementById("valor1").value) * 0.35;
+    recteres = parseFloat(document.getElementById("valor1").value) * 0.40;
+
+    document.getElementById("inicial-result").innerHTML = "Inicial mínimo 35%: " + minteres.toFixed(2) + "<br>" + "Inicial ideal 40%: " + recteres.toFixed(2);
+}
+
+function calcularTreintaDias() {
+    let valor, inicialcliente, inicial, treintadias;
+
+    valor = parseFloat(document.getElementById("valor1").value);
+    inicial = parseFloat(document.getElementById("valor2").value);
+    treintadias = parseFloat(document.getElementById("valor5").value);
+
+    inicialcliente =  100 * (inicial + treintadias) / valor / 100;
+
+    document.getElementById("treintadias-result").innerHTML = "Inicial + 30 días: " + (inicial + treintadias).toFixed(2) + "<br>" + "Porcentaje inicial: " + inicialcliente.toFixed(2) + "%";
+
+}
